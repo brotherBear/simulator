@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from random import randint, random as r
 
 batch_size = 50
