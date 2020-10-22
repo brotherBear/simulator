@@ -39,10 +39,7 @@ def start_simulation():
         try:
             in_process = sum(deployed) + sum(not_found) + sum(conn_fail) + sum(
                 verify_fail)
-            if failed > fail_limit:
-                print("Too many failed")
-                keep_going = False
-            elif in_process + failed < fail_limit and remaining > 0:
+            if in_process + failed < fail_limit and remaining > 0:
                 # We can add more to the list
                 batch = batch_size if remaining > batch_size else remaining
                 deployed.insert(0, batch - randint(0, 2))
@@ -74,6 +71,9 @@ def start_simulation():
             if remaining <= 0 and (not deployed and not not_found and not
                                    conn_fail and not verify_fail):
                 print("Queue is empty. No remaining items to process.")
+                keep_going = False
+            if failed >= fail_limit:
+                print("Too many failed, stop the process!")
                 keep_going = False
 
         except KeyboardInterrupt:
