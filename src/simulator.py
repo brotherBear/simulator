@@ -68,22 +68,15 @@ def start_simulation(lot, batch, limit):
 
     fail_pct = failed * 100 / (failed + ok) if (failed + ok) else 0
     return ((f"{lot}, {limit}, {batch}, "
-             f"{tick}, {sum( deployed )}, "
-             f"{sum( not_found )}, "
-             f"{sum( conn_fail )}, "
-             f"{sum( verify_fail )}, "
+             f"{tick}, "
              f"{failed}, {ok}, "
              f"{fail_pct:0.1f}%, {message}"))
 
 
 if __name__ == '__main__':
-    print("Starting simulation")
-    print("Each line represents status end of simulation.")
-
     print("Max_upgrades, max_failures, batch_size, "
-          "Iteration, deployed, not_found, connection_failed, "
-          "verification_failed, failed, ok, failures %, message")
+          "Iteration, failed, ok, failures %, message")
     for lot in [1000, 2000, 5000]:
         for limit in [50, 100, 200]:
-            for batch in range(10, limit * 2 + 1, 10):
+            for batch in [10, 25, 50, 75, 100, 125, 150, 175, 200, 225, 250]:
                 print(start_simulation(lot, batch, limit))
